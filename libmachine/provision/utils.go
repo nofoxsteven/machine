@@ -32,8 +32,8 @@ func installDockerGeneric(p Provisioner, baseURL string) error {
 	// install docker - until cloudinit we use ubuntu everywhere so we
 	// just install it using the docker repos
 	log.Infof("Installing Docker from: %s", baseURL)
-	if output, err := p.SSHCommand(fmt.Sprintf("if ! type docker; then curl -sSL %s | sh -; fi", baseURL)); err != nil {
-		return fmt.Errorf("Error installing Docker: %s", output)
+	if err := waitForLock(p, fmt.Sprintf("if ! type docker; then curl -sSL %s | sh -; fi", baseURL)); err != nil {
+		return fmt.Errorf("Error installing Docker: %s", err.Error())
 	}
 
 	return nil
@@ -301,7 +301,16 @@ func DockerClientVersion(ssh SSHCommander) (string, error) {
 }
 
 func waitForLockAptGetUpdate(ssh SSHCommander) error {
-	return waitForLock(ssh, "sudo apt-get update")
+	lockTimeout := 300
+
+	cmd := fmt.Sprintf("sudo apt-get -o DPkg::Lock::Timeout=%d update", lockTimeout)
+
+	_, err := ssh.SSHCommand(cmd)
+	if err != nil {
+		return fmt.Errorf("apt-get update failed: %s", err.Error())
+	}
+
+	return nil
 }
 
 func waitForLock(ssh SSHCommander, cmd string) error {
