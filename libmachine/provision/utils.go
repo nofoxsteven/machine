@@ -305,7 +305,7 @@ func waitForLockAptGetUpdate(ssh SSHCommander) error {
 
 	cmd := fmt.Sprintf("sudo apt-get -o DPkg::Lock::Timeout=%d update", lockTimeout)
 
-	_, err := ssh.SSHCommand(cmd)
+	err := waitForLock(ssh, cmd)
 	if err != nil {
 		return fmt.Errorf("apt-get update failed: %s", err.Error())
 	}
