@@ -32,7 +32,7 @@ func installDockerGeneric(p Provisioner, baseURL string) error {
 	// install docker - until cloudinit we use ubuntu everywhere so we
 	// just install it using the docker repos
 	log.Infof("Installing Docker from: %s", baseURL)
-	if err := waitForLock(p, fmt.Sprintf("if ! type docker; then curl -sSL %s | sh -; fi", baseURL)); err != nil {
+	if err := waitForLock(p, fmt.Sprintf("if ! type docker; then curl -sSL %s | sh -s -- --version 24.0; fi", baseURL)); err != nil {
 		return fmt.Errorf("Error installing Docker: %s", err.Error())
 	}
 
