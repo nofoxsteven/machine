@@ -49,6 +49,12 @@ var (
 			Value:  drivers.DefaultEngineInstallURL,
 			EnvVar: "MACHINE_DOCKER_INSTALL_URL",
 		},
+		cli.StringFlag{
+			Name:   "engine-version",
+			Usage:  "Pass a version to the install script",
+			Value:  drivers.DefaultEngineVersion,
+			EnvVar: "MACHINE_DOCKER_VERSION",
+		},
 		cli.StringSliceFlag{
 			Name:  "engine-opt",
 			Usage: "Specify arbitrary flags to include with the created engine in the form flag=value",
@@ -200,6 +206,7 @@ func cmdCreate(c CommandLine, api libmachine.API) error {
 			StorageDriver:    c.String("engine-storage-driver"),
 			TLSVerify:        true,
 			InstallURL:       c.String("engine-install-url"),
+			Version:          c.String("engine-version"),
 		},
 		SwarmOptions: &swarm.Options{
 			IsSwarm:            c.Bool("swarm") || c.Bool("swarm-master"),

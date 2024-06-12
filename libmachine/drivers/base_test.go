@@ -32,6 +32,10 @@ func TestEngineInstallUrlFlagEmpty(t *testing.T) {
 	assert.False(t, EngineInstallURLFlagSet(&CheckDriverOptions{}))
 }
 
+func TestEngineVersionFlagEmpty(t *testing.T) {
+	assert.False(t, EngineVersionFlagSet(&CheckDriverOptions{}))
+}
+
 func createDriverOptionWithEngineInstall(url string) *CheckDriverOptions {
 	return &CheckDriverOptions{
 		FlagsValues: map[string]interface{}{"engine-install-url": url},

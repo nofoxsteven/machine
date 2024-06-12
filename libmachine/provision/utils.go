@@ -24,7 +24,7 @@ type DockerOptions struct {
 	EngineOptionsPath string
 }
 
-func installDockerGeneric(p Provisioner, baseURL string) error {
+func installDockerGeneric(p Provisioner, baseURL string, dockerVersion string) error {
 	if strings.EqualFold(baseURL, "none") {
 		log.Info("Skipping Docker installation")
 		return nil
@@ -32,7 +32,7 @@ func installDockerGeneric(p Provisioner, baseURL string) error {
 	// install docker - until cloudinit we use ubuntu everywhere so we
 	// just install it using the docker repos
 	log.Infof("Installing Docker from: %s", baseURL)
-	if err := waitForLock(p, fmt.Sprintf("if ! type docker; then curl -sSL %s | sh -s -- --version 24.0; fi", baseURL)); err != nil {
+	if err := waitForLock(p, fmt.Sprintf("if ! type docker; then curl -sSL %s | sh -s -- --version %s; fi", baseURL, dockerVersion)); err != nil {
 		return fmt.Errorf("Error installing Docker: %s", err.Error())
 	}
 

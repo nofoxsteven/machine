@@ -9,6 +9,7 @@ const (
 	DefaultSSHUser          = "root"
 	DefaultSSHPort          = 22
 	DefaultEngineInstallURL = "https://get.docker.com"
+	DefaultEngineVersion    = "24"
 )
 
 // BaseDriver - Embed this struct into drivers to provide the common set
@@ -91,4 +92,12 @@ func EngineInstallURLFlagSet(flags DriverOptions) bool {
 
 func EngineInstallURLSet(url string) bool {
 	return url != DefaultEngineInstallURL && url != ""
+}
+
+func EngineVersionFlagSet(flags DriverOptions) bool {
+	return EngineVersionSet(flags.String("engine-version"))
+}
+
+func EngineVersionSet(version string) bool {
+	return version != DefaultEngineVersion && version != ""
 }

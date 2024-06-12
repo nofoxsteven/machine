@@ -50,8 +50,8 @@ func (provisioner *GenericProvisioner) SetHostname(hostname string) error {
 		if ! grep -xq '.*\s%s' /etc/hosts; then
 			if grep -xq '127.0.1.1\s.*' /etc/hosts; then
 				sudo sed -i 's/^127.0.1.1\s.*/127.0.1.1 %s/g' /etc/hosts;
-			else 
-				echo '127.0.1.1 %s' | sudo tee -a /etc/hosts; 
+			else
+				echo '127.0.1.1 %s' | sudo tee -a /etc/hosts;
 			fi
 		fi`,
 		hostname,

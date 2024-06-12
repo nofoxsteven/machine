@@ -18,4 +18,5 @@ type Options struct {
 	TLSVerify        bool `json:"TlsVerify"`
 	RegistryMirror   []string
 	InstallURL       string
+	Version          string
 }

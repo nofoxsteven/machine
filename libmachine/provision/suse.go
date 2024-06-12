@@ -142,7 +142,7 @@ func (provisioner *SUSEProvisioner) Provision(swarmOptions swarm.Options, authOp
 		}
 	}
 
-	if err := installDockerGeneric(provisioner, provisioner.EngineOptions.InstallURL); err != nil {
+	if err := installDockerGeneric(provisioner, provisioner.EngineOptions.InstallURL, provisioner.EngineOptions.Version); err != nil {
 		return err
 	}
 

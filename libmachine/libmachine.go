@@ -67,6 +67,7 @@ func (api *Client) NewHost(driverName string, rawDriver []byte) (*host.Host, err
 			AuthOptions: api.AuthOptions(),
 			EngineOptions: &engine.Options{
 				InstallURL:    drivers.DefaultEngineInstallURL,
+				Version:       drivers.DefaultEngineVersion,
 				StorageDriver: provision.DefaultStorageDriver,
 				TLSVerify:     true,
 			},
